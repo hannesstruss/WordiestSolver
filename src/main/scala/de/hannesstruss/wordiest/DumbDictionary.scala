@@ -4,12 +4,10 @@ class DumbDictionary extends Dictionary {
   private val words = Set("ja", "jo")
 
   override def isBeginningOfWord(beginning: Word): Boolean = {
-    val str = beginning.map(_.letter).mkString
-    words.filter(_.startsWith(str)).nonEmpty
+    words.filter(_.startsWith(wordToString(beginning))).nonEmpty
   }
 
   override def isWord(word: Word): Boolean = {
-    val str = word.map(_.letter).mkString
-    words contains str
+    words contains wordToString(word)
   }
 }

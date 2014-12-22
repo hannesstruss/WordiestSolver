@@ -2,9 +2,9 @@ package de.hannesstruss.wordiest
 
 import org.scalatest.FunSuite
 
-class WordiestSolver$Test extends FunSuite {
+class Solver$Test extends FunSuite {
   val dict = new DumbDictionary
-  val solver = new WordiestSolver(dict)
+  val solver = new Solver(dict)
 
   test("should find beginning of word") {
     val w = List(Tile('j'))

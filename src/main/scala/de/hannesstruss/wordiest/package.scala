@@ -1,5 +1,7 @@
 package de.hannesstruss
 
+import scala.io.Source
+
 package object wordiest {
   val Values = Map(
     'a' -> 1,
@@ -30,9 +32,11 @@ package object wordiest {
     'z' -> 10
   )
 
-  case class Tile(letter: Char) {
-    def value: Int = Values(letter)
+  case class Tile(letter: Char, letterMultiplier: Int = 1, wordMultiplier: Int = 1) {
+    def value: Int = Values(letter) * letterMultiplier
   }
 
   type Word = List[Tile]
+
+  def loadWordsFromFile(): Set[String] = Source.fromURL(getClass.getResource("/dictionary.txt")).getLines().toSet
 }

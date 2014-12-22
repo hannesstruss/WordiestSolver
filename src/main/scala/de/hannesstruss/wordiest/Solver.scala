@@ -1,6 +1,6 @@
 package de.hannesstruss.wordiest
 
-class WordiestSolver(dict: Dictionary) {
+class Solver(dict: Dictionary) {
   def permute(word: Word): List[Word] = permute(word, List())
 
   def permute(tiles: Word, prefix: Word): List[Word] = tiles match {
