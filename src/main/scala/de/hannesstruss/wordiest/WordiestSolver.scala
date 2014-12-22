@@ -34,42 +34,36 @@ object WordiestSolver {
     def value: Int = Values(letter)
   }
 
-  def isStartOfWord(beginning: List[Tile]): Boolean = {
+  type Word = List[Tile]
+
+  def isStartOfWord(beginning: Word): Boolean = {
     val str = beginning.map(_.letter).mkString
     val words = Set("ja", "jo")
     words.filter(_.startsWith(str)).nonEmpty
   }
 
-  def isWord(tiles: List[Tile]): Boolean = {
-    val str = tiles.map(_.letter).mkString
+  def isWord(word: Word): Boolean = {
+    val str = word.map(_.letter).mkString
     val words = Set("ja", "jo")
     words contains str
   }
 
-  def permute(word: List[Tile]): List[List[Tile]] = permute(word, List())
+  def permute(word: Word): List[Word] = permute(word, List())
 
-  def permute(tiles: List[Tile], prefix: List[Tile]): List[List[Tile]] = {
-    if (!isStartOfWord(prefix)) {
-      List()
-    } else {
-      val solutions = tiles match {
-        case Nil => List()
-        case List(_) => List(tiles)
-        case _ =>
-          (for (i <- tiles.indices.toList) yield {
-            val elem = tiles(i)
-            val newPrefix = prefix :+ elem
+  def permute(tiles: Word, prefix: Word): List[Word] = tiles match {
+    case Nil => if (isWord(prefix)) List(prefix) else List(Nil)
+    case _ =>
+      val subsolutions: List[Word] = (for {
+        i <- tiles.indices.toList
+        elem = tiles(i)
+        (before, after) = tiles.splitAt(i)
+        tilesWithoutElem = before ++ after.tail
+        newPrefix = prefix :+ elem
+        if isStartOfWord(newPrefix)
+      } yield permute(tilesWithoutElem, newPrefix)).flatten
 
-            if (isWord(newPrefix)) {
-              println(newPrefix)
-            }
-
-            val (before, rest) = tiles.splitAt(i)
-            val subpermutes = permute(before ++ rest.tail, newPrefix)
-            subpermutes.map(elem :: _)
-          }).flatten
-      }
-      solutions
-    }
+      if (isWord(prefix)) {
+        prefix :: subsolutions
+      } else subsolutions
   }
 }

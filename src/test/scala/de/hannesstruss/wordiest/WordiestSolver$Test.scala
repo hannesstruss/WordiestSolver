@@ -19,6 +19,16 @@ class WordiestSolver$Test extends FunSuite {
     assert(WordiestSolver.isWord(ja))
   }
 
+  test("should return empty permutation") {
+    val result = WordiestSolver.permute(Nil, Nil)
+    assert(result == List(Nil))
+  }
+
+  test("should match one tile with prefix") {
+    val result = WordiestSolver.permute(List(Tile('o')), List(Tile('j')))
+    assert(result == List(List(Tile('j'), Tile('o'))))
+  }
+
   test("Should permute some tiles") {
     val in = List(Tile('j'), Tile('a'), Tile('o'))
     val result = WordiestSolver.permute(in)
