@@ -14,4 +14,18 @@ class RealDictionaryTest extends FunSuite {
     val dict = new RealDictionary(words)
     assert(dict.isBeginningOfWord(Nil))
   }
+
+  test("whole word should be beginning of itself") {
+    val dict = new RealDictionary(words)
+    assert(dict.isBeginningOfWord(List(
+      Tile('t'),
+      Tile('e'),
+      Tile('r'),
+      Tile('i'),
+      Tile('y'),
+      Tile('a'),
+      Tile('k'),
+      Tile('i')
+    )))
+  }
 }

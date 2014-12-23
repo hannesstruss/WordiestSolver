@@ -39,4 +39,8 @@ package object wordiest {
   type Word = List[Tile]
 
   def loadWordsFromFile(): Set[String] = Source.fromURL(getClass.getResource("/dictionary.txt")).getLines().toSet
+
+  def parse(s: String): Word = {
+    new Parser().parse(s)
+  }
 }
