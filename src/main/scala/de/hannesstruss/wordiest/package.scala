@@ -34,6 +34,19 @@ package object wordiest {
 
   case class Tile(letter: Char, letterMultiplier: Int = 1, wordMultiplier: Int = 1) {
     def value: Int = Values(letter) * letterMultiplier
+
+    def beautiful: String = {
+      s"$letter" + (if (letterMultiplier > 1) {
+        s",${letterMultiplier}l"
+      } else {
+        ""
+      }) + (if (wordMultiplier > 1) {
+        s",${wordMultiplier}w"
+      } else
+      {
+        ""
+      })
+    }
   }
 
   type Word = List[Tile]

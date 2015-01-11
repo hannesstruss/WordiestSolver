@@ -27,8 +27,8 @@ class SolverCLI() {
 
         val (one, two) = solver.solveTwo(game)
 
-        println(one)
-        println(two)
+        println(one.map(_.beautiful).mkString(" "))
+        println(two.map(_.beautiful).mkString(" "))
 
         println(s"${solver.score(one)} + ${solver.score(two)} = ${solver.score(one) + solver.score(two)}")
       }
